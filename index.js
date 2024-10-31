@@ -182,7 +182,7 @@ var getBasemapService = function(options){
           return "https://www.arcgis.com/sharing/rest/content/items/7675d44bb1e4428aa2c30a9b68f97822/resources/styles/root.json?f=pjson";
         case 'parchment-texture':
           return "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/ParchmentTexture/VectorTileServer/resources/styles/root.json?f=pjson";
-        case 'folded-Paper-texture':
+        case 'folded-paper-texture':
           return "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/FoldedPaperTexture/VectorTileServer/resources/styles/root.json?f=pjson";
         default:
             return "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
