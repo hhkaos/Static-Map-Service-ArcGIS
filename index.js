@@ -101,22 +101,30 @@ var requestImage = function(options, xy, res){
     }
 
     if(options.maptype){
-        options.maptype = (options.maptype === "roadmap") ? "streets" : options.maptype;
+        options.maptype = (options.maptype === "roadmap") ? "navigation" : options.maptype;
         options.maptype = (options.maptype === "terrain") ? "topo" : options.maptype;
         options.basemap = options.maptype;
     }
 
-    webmap.operationalLayers[0].url = getBasemapService(options);
+    if(options.basemap === "satellite"){
+      webmap.operationalLayers[0].layerType = "ArcGISTiledMapServiceLayer";
+      webmap.operationalLayers[0].url = getBasemapService(options);
+    }else{
+      webmap.operationalLayers[0].type = "VectorTileLayer";
+      webmap.operationalLayers[0].styleUrl = getBasemapService(options);
+    }
 
     requestOptions={webmap: webmap}
 
     if(options.format){
         requestOptions.format = options.format;
     }
-
+    // console.log(JSON.stringify(requestOptions, null, 2))
+   
     service.ExportWebMapTask(requestOptions).then(function(response){
 
         if(response.error){
+          console.error(error);
             res.redirect("/static/error.svg");
         }else{
             res.redirect(response.results[0].value.url);
@@ -145,13 +153,13 @@ var lngLatToXY = function(a,b){
 var getBasemapService = function(options){
     switch(options.basemap){
         case 'satellite':
-            return "http://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
+            return "https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer";
         case 'topo':
-            return "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
+            return "https://www.arcgis.com/sharing/rest/content/items/7dc6cea0b1764a1f9af2e679f642f0f5/resources/styles/root.json?f=pjson";
         case 'light-gray':
-            return "http://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer";
+            return "https://www.arcgis.com/sharing/rest/content/items/291da5eab3a0412593b66d384379f89f/resources/styles/root.json?f=pjson";
         case 'dark-gray':
-            return "http://services.arcgisonline.com/arcgis/rest/services/Canvas/World_Dark_Gray_Base/MapServer";
+            return "https://www.arcgis.com/sharing/rest/content/items/c11ce4f7801740b2905eb03ddc963ac8/resources/styles/root.json?f=pjson";
         case 'streets':
             return "http://server.arcgisonline.com/ArcGIS/rest/services/World_Street_Map/MapServer";
         case 'hybrid':
@@ -159,9 +167,23 @@ var getBasemapService = function(options){
         case 'oceans':
             return "http://server.arcgisonline.com/arcgis/rest/services/Ocean/World_Ocean_Reference/MapServer";
         case 'national-geographic':
-            return "http://server.arcgisonline.com/ArcGIS/rest/services/NatGeo_World_Map/MapServer";
+            return "https://www.arcgis.com/sharing/rest/content/items/3d1a30626bbc46c582f148b9252676ce/resources/styles/root.json?f=pjson";
+        case 'navigation':
+            return "https://www.arcgis.com/sharing/rest/content/items/63c47b7177f946b49902c24129b87252/resources/styles/root.json?f=pjson";
         case 'osm':
-            return "http://a.tile.openstreetmap.org/";
+            return "https://tiles.arcgis.com/tiles/nSZVuSZjHpEZZbRo/arcgis/rest/services/OSM_RD/VectorTileServer/resources/styles/root.json?f=pjson";
+        case 'modern-antique':
+          return "https://www.arcgis.com/sharing/rest/content/items/effe3475f05a4d608e66fd6eeb2113c0/resources/styles/root.json?f=pjson";
+        case 'nova':
+          return "https://www.arcgis.com/sharing/rest/content/items/75f4dfdff19e445395653121a95a85db/resources/styles/root.json?f=pjson";
+        case 'community':
+          return "https://www.arcgis.com/sharing/rest/content/items/273bf8d5c8ac400183fc24e109d20bcf/resources/styles/root.json?f=pjson";
+        case 'mid-century':
+          return "https://www.arcgis.com/sharing/rest/content/items/7675d44bb1e4428aa2c30a9b68f97822/resources/styles/root.json?f=pjson";
+        case 'parchment-texture':
+          return "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/ParchmentTexture/VectorTileServer/resources/styles/root.json?f=pjson";
+        case 'folded-Paper-texture':
+          return "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/FoldedPaperTexture/VectorTileServer/resources/styles/root.json?f=pjson";
         default:
             return "http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer";
     }

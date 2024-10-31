@@ -15,7 +15,7 @@ Allowed parameters (concatenate using &):
 
 Param| Type | Default value | Summary
 --- | --- | --- | ---
-basemap|string|topo|Allowed: satellite, topo (terrain is an alias), light-gray, dark-gray, streets (roadmap is an alias), hybrid, oceans, national-geographic, osm
+basemap|string|topo|Allowed: satellite, topo (terrain is an alias), light-gray, dark-gray, streets (roadmap is an alias), hybrid, oceans, national-geographic, osm, modern-antique, nova, community, mid-century, parchment-texture, folded-Paper-texture
 maptype|string|topo|basemap alias
 zoom|int|5|Allowed: from 1 to 15
 center|address or lat,lon|None|Map center
