@@ -2,7 +2,7 @@
 You will be able to get static maps like this:
 
 ```
-<img src="http://<service_url>/?center=Taracon,Spain&zoom=7&size=600x300&maptype=streets&markers=color:purple|40,-3&markers=color:orange|40,-3|xoffset:30|yoffset:30">
+<img src="http://<service_url>/?center=Taracon,Spain&zoom=7&size=600x300&maptype=roadmap&markers=color:purple|40,-3&markers=color:orange|40,-3|xoffset:30|yoffset:30">
 ```
 
 To install this service you just need to run:
@@ -15,7 +15,7 @@ Allowed parameters (concatenate using &):
 
 Param| Type | Default value | Summary
 --- | --- | --- | ---
-basemap|string|topo|Allowed: satellite, topo (terrain is an alias), light-gray, dark-gray, streets (roadmap is an alias), hybrid, oceans, national-geographic, osm, modern-antique, nova, community, mid-century, parchment-texture, folded-Paper-texture
+basemap|string|topo|Allowed: satellite, topo (terrain is an alias), light-gray, dark-gray, streets (roadmap is an alias), navigation, hybrid, oceans, national-geographic, osm, modern-antique, nova, community, mid-century, parchment-texture, folded-paper-texture
 maptype|string|topo|basemap alias
 zoom|int|5|Allowed: from 1 to 15
 center|address or lat,lon|None|Map center
